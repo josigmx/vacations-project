@@ -1,0 +1,120 @@
+[{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c50"
+	},
+	"firstName": "Admin",
+	"lastName": "Manager",
+	"email": "admin@vacations.com",
+	"password": "$2b$10$4aC9v2nf5PjVbpJFY/ORre7Uft09lsOValeqPGbzA.FxP3TyrRFte",
+	"role": "admin",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.924Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.924Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c53"
+	},
+	"firstName": "Noa",
+	"lastName": "Mizrahi",
+	"email": "noa@test.com",
+	"password": "$2b$10$xnz6lhw.lz..p/Ab2ROXE.WN6zi/EYsKey1D15klzBdDeuyg743xC",
+	"role": "user",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.928Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.928Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c52"
+	},
+	"firstName": "Avi",
+	"lastName": "Levi",
+	"email": "avi@test.com",
+	"password": "$2b$10$xnz6lhw.lz..p/Ab2ROXE.WN6zi/EYsKey1D15klzBdDeuyg743xC",
+	"role": "user",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.928Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.928Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c51"
+	},
+	"firstName": "Dana",
+	"lastName": "Cohen",
+	"email": "dana@test.com",
+	"password": "$2b$10$xnz6lhw.lz..p/Ab2ROXE.WN6zi/EYsKey1D15klzBdDeuyg743xC",
+	"role": "user",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.928Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.928Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c54"
+	},
+	"firstName": "Omer",
+	"lastName": "Peretz",
+	"email": "omer@test.com",
+	"password": "$2b$10$xnz6lhw.lz..p/Ab2ROXE.WN6zi/EYsKey1D15klzBdDeuyg743xC",
+	"role": "user",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.928Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.928Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c55"
+	},
+	"firstName": "Maya",
+	"lastName": "Friedman",
+	"email": "maya@test.com",
+	"password": "$2b$10$xnz6lhw.lz..p/Ab2ROXE.WN6zi/EYsKey1D15klzBdDeuyg743xC",
+	"role": "user",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.928Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.928Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c56"
+	},
+	"firstName": "Yoni",
+	"lastName": "Katz",
+	"email": "yoni@test.com",
+	"password": "$2b$10$xnz6lhw.lz..p/Ab2ROXE.WN6zi/EYsKey1D15klzBdDeuyg743xC",
+	"role": "user",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.928Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.928Z"
+	},
+	"__v": 0
+}]
+

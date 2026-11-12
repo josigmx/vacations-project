@@ -1,0 +1,45 @@
+# The whole system: docker compose up -d --build
+#   website  → http://localhost:8080
+#   server   → http://localhost:3001 (direct, for Postman)
+name: vacations
+
+services:
+  client:
+    build: ./Frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - api # wait for the api service to start before starting the client
+
+  api:
+    build: ./Backend
+    ports:
+      - "3001:3001"
+    env_file:
+      - path: ./Backend/.env # JWT_SECRET + GEMINI_API_KEY (copy Backend/.env.example to Backend/.env)
+        required: false
+    environment:
+      - PORT=3001
+      - MONGODB_URI=mongodb://mongodb:27017/vacationsDB
+      - TZ=Asia/Jerusalem # "active now" is decided by the Israeli calendar day
+      - SEED_IF_EMPTY=true # the first start fills the empty database with the starting data
+    volumes:
+      - images_data:/app/images # uploaded photos survive a rebuild
+    depends_on:
+      mongodb:
+        condition: service_healthy # start only when MongoDB answers
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:7
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+volumes:
+  mongodb_data:
+  images_data:

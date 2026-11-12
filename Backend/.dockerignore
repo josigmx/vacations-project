@@ -1,0 +1,7 @@
+node_modules
+dist
+.env
+.git
+# runtime data: the photos live in a Docker volume (the seed copies them from seed-images/)
+images
+*.postman_collection.json

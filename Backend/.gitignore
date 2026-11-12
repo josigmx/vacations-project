@@ -1,0 +1,6 @@
+node_modules
+dist
+.env
+# runtime data: uploaded photos (the seed photos are in seed-images/)
+images
+.DS_Store

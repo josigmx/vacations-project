@@ -1,0 +1,2728 @@
+{
+  "info": {
+    "_postman_id": "ea6dd329-febc-410c-9b44-d57d9b253b62",
+    "name": "Vacations API - Project 3 (Yusef Abusalah)",
+    "description": "Vacations system REST API. Run `npm run seed` first, then run the requests in order.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "1. Register a new user",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// a new email on every run, so the request can run again",
+                  "pm.collectionVariables.set('newEmail', `postman${Date.now()}@test.com`);"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                  "const result = pm.response.json();",
+                  "pm.test('Returns a token', () => pm.expect(result.token).to.be.a('string'));",
+                  "pm.test('Returns the user WITHOUT the password', () => pm.expect(result.user).to.not.have.property('password'));",
+                  "pm.test('A new user gets the role user', () => pm.expect(result.user.role).to.eql('user'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "register"
+              ]
+            },
+            "description": "Creates a user and logs him in (returns a token). The role is always 'user'.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Postman\",\n  \"lastName\": \"Tester\",\n  \"email\": \"{{newEmail}}\",\n  \"password\": \"1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "2. Register with a taken email -> 409",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Error message', () => pm.expect(pm.response.json().message).to.eql('This email is already registered'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "register"
+              ]
+            },
+            "description": "The same email as request 1.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Postman\",\n  \"lastName\": \"Tester\",\n  \"email\": \"{{newEmail}}\",\n  \"password\": \"1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "3. Register with a missing field -> 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Error message', () => pm.expect(pm.response.json().message).to.eql('All fields are required'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "register"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Postman\",\n  \"lastName\": \"\",\n  \"email\": \"missing@test.com\",\n  \"password\": \"1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "4. Register with an invalid email -> 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Error message', () => pm.expect(pm.response.json().message).to.eql('Invalid email address'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "register"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Postman\",\n  \"lastName\": \"Tester\",\n  \"email\": \"not-an-email\",\n  \"password\": \"1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "5. Register with a short password -> 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Error message', () => pm.expect(pm.response.json().message).to.eql('Password must be at least 4 characters'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "register"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Postman\",\n  \"lastName\": \"Tester\",\n  \"email\": \"short@test.com\",\n  \"password\": \"123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "6. Register trying to be admin -> saved as user",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set('hackEmail', `hacker${Date.now()}@test.com`);"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                  "pm.test('The role from the body is ignored', () => pm.expect(pm.response.json().user.role).to.eql('user'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "register"
+              ]
+            },
+            "description": "Security check: a user cannot make himself admin.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Postman\",\n  \"lastName\": \"Hacker\",\n  \"email\": \"{{hackEmail}}\",\n  \"password\": \"1234\",\n  \"role\": \"admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "7. Login with a wrong password -> 401",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Error message', () => pm.expect(pm.response.json().message).to.eql('Incorrect email or password'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "login"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"dana@test.com\",\n  \"password\": \"9999\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "8. Login with a missing field -> 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 400', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "login"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"dana@test.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "9. Login as user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "const result = pm.response.json();",
+                  "pm.test('Role is user', () => pm.expect(result.user.role).to.eql('user'));",
+                  "pm.test('Full name is returned', () => pm.expect(`${result.user.firstName} ${result.user.lastName}`).to.eql('Dana Cohen'));",
+                  "pm.collectionVariables.set('userToken', result.token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "login"
+              ]
+            },
+            "description": "Seed user. Saves the token in {{userToken}}.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"dana@test.com\",\n  \"password\": \"1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "10. Login as admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "const result = pm.response.json();",
+                  "pm.test('Role is admin', () => pm.expect(result.user.role).to.eql('admin'));",
+                  "pm.collectionVariables.set('adminToken', result.token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "login"
+              ]
+            },
+            "description": "Seed admin. Saves the token in {{adminToken}}.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@vacations.com\",\n  \"password\": \"admin1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vacations",
+      "item": [
+        {
+          "name": "11. Get vacations without a token -> 401",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 401', () => pm.response.to.have.status(401));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/vacations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations"
+              ]
+            },
+            "description": "Logged-in users only."
+          }
+        },
+        {
+          "name": "12. Get vacations (user)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "const page = pm.response.json();",
+                  "const list = page.vacations;",
+                  "pm.test('At least 12 vacations in total', () => pm.expect(page.total).to.be.at.least(12));",
+                  "pm.test('Page info', () => { pm.expect(page.page).to.eql(1); pm.expect(page.pageSize).to.eql(9); pm.expect(page.totalPages).to.eql(Math.ceil(page.total / 9)); });",
+                  "pm.test('Every card has likesCount, isLiked and status', () => list.forEach(v => { pm.expect(v.likesCount).to.be.a('number'); pm.expect(v.isLiked).to.be.a('boolean'); pm.expect(['ended', 'active', 'upcoming']).to.include(v.status); }));",
+                  "// the first vacation Dana did NOT like \u2014 the like tests below use it",
+                  "const notLiked = list.find(v => !v.isLiked);",
+                  "pm.collectionVariables.set('vacationId', notLiked._id);",
+                  "pm.collectionVariables.set('startLikes', notLiked.likesCount);",
+                  "pm.test('Sorted by start date, ascending', () => {",
+                  "  for (let i = 1; i < list.length; i++) pm.expect(new Date(list[i].startDate) >= new Date(list[i - 1].startDate)).to.be.true;",
+                  "});",
+                  "pm.test('9 per page', () => pm.expect(pm.response.json().vacations.length).to.be.at.most(9));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "13. Get vacations - page 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "const page = pm.response.json();",
+                  "pm.test('Page 2', () => pm.expect(page.page).to.eql(2));",
+                  "pm.test('The rest of the vacations', () => pm.expect(page.vacations.length).to.eql(Math.min(9, page.total - 9)));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations?page=2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations?page=2"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "14. Filter - active now",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Only active vacations', () => pm.response.json().vacations.forEach(v => pm.expect(v.status).to.eql('active')));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations?filter=active",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations?filter=active"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "15. Filter - not started yet",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "const list = pm.response.json().vacations;",
+                  "pm.test('Only upcoming vacations', () => list.forEach(v => pm.expect(v.status).to.eql('upcoming')));",
+                  "pm.test('Their start date is after today', () => list.forEach(v => pm.expect(new Date(v.startDate) > new Date()).to.be.true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations?filter=upcoming",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations?filter=upcoming"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "16. Filter - my likes",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Only vacations I liked', () => pm.response.json().vacations.forEach(v => pm.expect(v.isLiked).to.be.true));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations?filter=liked",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations?filter=liked"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "17. Invalid filter -> 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 400', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations?filter=cheap",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations?filter=cheap"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "18. Invalid page -> 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 400', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations?page=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations?page=0"
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "Likes",
+      "item": [
+        {
+          "name": "19. Like a vacation (user)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "const result = pm.response.json();",
+                  "pm.test('Now liked', () => pm.expect(result.isLiked).to.be.true);",
+                  "pm.test('One more like', () => pm.expect(result.likesCount).to.eql(Number(pm.collectionVariables.get('startLikes')) + 1));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations/{{vacationId}}/like",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations",
+                "{{vacationId}}",
+                "like"
+              ]
+            },
+            "description": "The vacation saved by request 12 (one Dana did not like)."
+          }
+        },
+        {
+          "name": "20. Like the same vacation again -> still one like",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('The count did not change', () => pm.expect(pm.response.json().likesCount).to.eql(Number(pm.collectionVariables.get('startLikes')) + 1));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations/{{vacationId}}/like",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations",
+                "{{vacationId}}",
+                "like"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "21. Remove the like (user)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "const result = pm.response.json();",
+                  "pm.test('Not liked anymore', () => pm.expect(result.isLiked).to.be.false);",
+                  "pm.test('Back to the start count', () => pm.expect(result.likesCount).to.eql(Number(pm.collectionVariables.get('startLikes'))));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations/{{vacationId}}/like",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations",
+                "{{vacationId}}",
+                "like"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "22. Admin cannot like -> 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Error message', () => pm.expect(pm.response.json().message).to.eql('Admin cannot like vacations'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations/{{vacationId}}/like",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations",
+                "{{vacationId}}",
+                "like"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "23. Like with an invalid id -> 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 400', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations/123/like",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations",
+                "123",
+                "like"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "24. Like a vacation that does not exist -> 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 404', () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations/6ae9b0fca127e3d28e57c4ff/like",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations",
+                "6ae9b0fca127e3d28e57c4ff",
+                "like"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "25. Like without a token -> 401",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 401', () => pm.response.to.have.status(401));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/vacations/{{vacationId}}/like",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations",
+                "{{vacationId}}",
+                "like"
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - vacations",
+      "item": [
+        {
+          "name": "26. Add a vacation (admin)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// dates relative to today, so the requests work on any day",
+                  "const day = (n) => { const d = new Date(); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); };",
+                  "pm.collectionVariables.set('futureStart', day(30));",
+                  "pm.collectionVariables.set('futureEnd', day(37));",
+                  "pm.collectionVariables.set('pastStart', day(-40));",
+                  "pm.collectionVariables.set('pastEnd', day(-35));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+                  "const v = pm.response.json();",
+                  "pm.test('Saved with an id', () => pm.expect(v._id).to.be.a('string'));",
+                  "pm.test('The DB keeps only the image FILE NAME with its extension', () => pm.expect(v.imageFileName).to.match(/^[0-9a-f-]+\\.jpg$/));",
+                  "pm.test('Price is a number', () => pm.expect(v.price).to.eql(1450));",
+                  "pm.collectionVariables.set('newVacationId', v._id);",
+                  "pm.collectionVariables.set('newImage', v.imageFileName);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations"
+              ]
+            },
+            "description": "Multipart form. The image comes from seed-images/rome.jpg (run newman from the Backend folder, or pick any JPG in Postman).",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "destination",
+                  "value": "Lisbon, Portugal",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Yellow trams, blue tiles and pastel de nata by the Tagus river.",
+                  "type": "text"
+                },
+                {
+                  "key": "startDate",
+                  "value": "{{futureStart}}",
+                  "type": "text"
+                },
+                {
+                  "key": "endDate",
+                  "value": "{{futureEnd}}",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "1450",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "seed-images/rome.jpg"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "27. Add with past dates -> 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Error message', () => pm.expect(pm.response.json().message).to.eql('Dates cannot be in the past'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "destination",
+                  "value": "Lisbon, Portugal",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Yellow trams, blue tiles and pastel de nata by the Tagus river.",
+                  "type": "text"
+                },
+                {
+                  "key": "startDate",
+                  "value": "{{pastStart}}",
+                  "type": "text"
+                },
+                {
+                  "key": "endDate",
+                  "value": "{{pastEnd}}",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "1450",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "seed-images/rome.jpg"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "28. Add with price above 10,000 -> 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Error message', () => pm.expect(pm.response.json().message).to.eql('Price must be between 0 and 10,000'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "destination",
+                  "value": "Lisbon, Portugal",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Yellow trams, blue tiles and pastel de nata by the Tagus river.",
+                  "type": "text"
+                },
+                {
+                  "key": "startDate",
+                  "value": "{{futureStart}}",
+                  "type": "text"
+                },
+                {
+                  "key": "endDate",
+                  "value": "{{futureEnd}}",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "10001",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "seed-images/rome.jpg"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "29. Add with a negative price -> 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 400', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "destination",
+                  "value": "Lisbon, Portugal",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Yellow trams, blue tiles and pastel de nata by the Tagus river.",
+                  "type": "text"
+                },
+                {
+                  "key": "startDate",
+                  "value": "{{futureStart}}",
+                  "type": "text"
+                },
+                {
+                  "key": "endDate",
+                  "value": "{{futureEnd}}",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "-1",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "seed-images/rome.jpg"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "30. Add with end before start -> 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Error message', () => pm.expect(pm.response.json().message).to.eql('End date cannot be before start date'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "destination",
+                  "value": "Lisbon, Portugal",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Yellow trams, blue tiles and pastel de nata by the Tagus river.",
+                  "type": "text"
+                },
+                {
+                  "key": "startDate",
+                  "value": "{{futureEnd}}",
+                  "type": "text"
+                },
+                {
+                  "key": "endDate",
+                  "value": "{{futureStart}}",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "1450",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "seed-images/rome.jpg"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "31. Add without an image -> 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Error message', () => pm.expect(pm.response.json().message).to.eql('Please choose an image'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "destination",
+                  "value": "Lisbon, Portugal",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Yellow trams, blue tiles and pastel de nata by the Tagus river.",
+                  "type": "text"
+                },
+                {
+                  "key": "startDate",
+                  "value": "{{futureStart}}",
+                  "type": "text"
+                },
+                {
+                  "key": "endDate",
+                  "value": "{{futureEnd}}",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "1450",
+                  "type": "text"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "32. Add as a regular user -> 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 403', () => pm.response.to.have.status(403));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "destination",
+                  "value": "Lisbon, Portugal",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Yellow trams, blue tiles and pastel de nata by the Tagus river.",
+                  "type": "text"
+                },
+                {
+                  "key": "startDate",
+                  "value": "{{futureStart}}",
+                  "type": "text"
+                },
+                {
+                  "key": "endDate",
+                  "value": "{{futureEnd}}",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "1450",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "seed-images/rome.jpg"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "33. Get one vacation (admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('The added vacation', () => pm.expect(pm.response.json().destination).to.eql('Lisbon, Portugal'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations/{{newVacationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations",
+                "{{newVacationId}}"
+              ]
+            },
+            "description": "Fills the edit form."
+          }
+        },
+        {
+          "name": "34. Edit with past dates, no new image (admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "const v = pm.response.json();",
+                  "pm.test('Past dates are allowed when editing', () => pm.expect(v.startDate.slice(0, 10)).to.eql(pm.collectionVariables.get('pastStart')));",
+                  "pm.test('The image is kept', () => pm.expect(v.imageFileName).to.eql(pm.collectionVariables.get('newImage')));",
+                  "pm.test('New price saved', () => pm.expect(v.price).to.eql(999));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations/{{newVacationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations",
+                "{{newVacationId}}"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "destination",
+                  "value": "Lisbon, Portugal",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Yellow trams, blue tiles and pastel de nata by the Tagus river.",
+                  "type": "text"
+                },
+                {
+                  "key": "startDate",
+                  "value": "{{pastStart}}",
+                  "type": "text"
+                },
+                {
+                  "key": "endDate",
+                  "value": "{{pastEnd}}",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "999",
+                  "type": "text"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "35. Edit with a new image (admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('A new image file name', () => pm.expect(pm.response.json().imageFileName).to.not.eql(pm.collectionVariables.get('newImage')));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations/{{newVacationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations",
+                "{{newVacationId}}"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "destination",
+                  "value": "Lisbon, Portugal",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Yellow trams, blue tiles and pastel de nata by the Tagus river.",
+                  "type": "text"
+                },
+                {
+                  "key": "startDate",
+                  "value": "{{pastStart}}",
+                  "type": "text"
+                },
+                {
+                  "key": "endDate",
+                  "value": "{{pastEnd}}",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "999",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "seed-images/bali.jpg"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "36. Edit with a missing field -> 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 400', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations/{{newVacationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations",
+                "{{newVacationId}}"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "destination",
+                  "value": "",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Yellow trams, blue tiles and pastel de nata by the Tagus river.",
+                  "type": "text"
+                },
+                {
+                  "key": "startDate",
+                  "value": "{{futureStart}}",
+                  "type": "text"
+                },
+                {
+                  "key": "endDate",
+                  "value": "{{futureEnd}}",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "1450",
+                  "type": "text"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "37. Edit as a regular user -> 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 403', () => pm.response.to.have.status(403));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations/{{newVacationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations",
+                "{{newVacationId}}"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "destination",
+                  "value": "Lisbon, Portugal",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Yellow trams, blue tiles and pastel de nata by the Tagus river.",
+                  "type": "text"
+                },
+                {
+                  "key": "startDate",
+                  "value": "{{futureStart}}",
+                  "type": "text"
+                },
+                {
+                  "key": "endDate",
+                  "value": "{{futureEnd}}",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "1450",
+                  "type": "text"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "38. Delete as a regular user -> 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 403', () => pm.response.to.have.status(403));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations/{{newVacationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations",
+                "{{newVacationId}}"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "39. Delete the vacation (admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations/{{newVacationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations",
+                "{{newVacationId}}"
+              ]
+            },
+            "description": "Deletes the vacation, its likes and its image file."
+          }
+        },
+        {
+          "name": "40. Delete it again -> 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 404', () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vacations/{{newVacationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vacations",
+                "{{newVacationId}}"
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - reports",
+      "item": [
+        {
+          "name": "41. Likes report (admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "const rows = pm.response.json();",
+                  "pm.test('A row per vacation', () => pm.expect(rows.length).to.be.at.least(12));",
+                  "pm.test('Each row: destination + likes', () => rows.forEach(r => { pm.expect(r.destination).to.be.a('string'); pm.expect(r.likes).to.be.a('number'); }));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reports/likes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reports",
+                "likes"
+              ]
+            },
+            "description": "The data of the chart: X = destination, Y = likes."
+          }
+        },
+        {
+          "name": "42. Likes report (user) -> 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 403', () => pm.response.to.have.status(403));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reports/likes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reports",
+                "likes"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "43. Download CSV (admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('A CSV file', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('text/csv'));",
+                  "pm.test('Downloaded as a file', () => pm.expect(pm.response.headers.get('Content-Disposition')).to.include('Vacation Likes.csv'));",
+                  "const lines = pm.response.text().replace(/^\\uFEFF/, '').split('\\r\\n');",
+                  "pm.test('Header line', () => pm.expect(lines[0]).to.eql('Destination,Likes'));",
+                  "pm.test('Destinations with a comma are quoted', () => pm.expect(lines[1]).to.match(/^\".+\",\\d+$/));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reports/csv",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reports",
+                "csv"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "44. Download CSV (user) -> 403",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 403', () => pm.response.to.have.status(403));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reports/csv",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reports",
+                "csv"
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI + MCP",
+      "item": [
+        {
+          "name": "45. AI trip recommendation (user)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "const r = pm.response.json();",
+                  "pm.test('A real destination', () => pm.expect(r.isDestination).to.be.true);",
+                  "pm.test('All the sections', () => ['summary', 'bestTimeToVisit', 'topAttractions', 'localFood', 'tips', 'itinerary'].forEach(k => pm.expect(r).to.have.property(k)));",
+                  "pm.test('Lists are not empty', () => { pm.expect(r.topAttractions).to.not.be.empty; pm.expect(r.itinerary).to.not.be.empty; });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ai/recommendation",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ai",
+                "recommendation"
+              ]
+            },
+            "description": "Calls Gemini (structured JSON). Takes a few seconds.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destination\": \"Lisbon\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "46. AI recommendation - not a place -> 422",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 422', () => pm.response.to.have.status(422));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ai/recommendation",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ai",
+                "recommendation"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destination\": \"my homework and a pizza\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "47. AI recommendation - empty -> 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 400', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ai/recommendation",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ai",
+                "recommendation"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destination\": \"  \"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "48. AI recommendation - no token -> 401",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 401', () => pm.response.to.have.status(401));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ai/recommendation",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ai",
+                "recommendation"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destination\": \"Rome\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "49. Ask the data through MCP (user)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "const r = pm.response.json();",
+                  "pm.test('An answer', () => pm.expect(r.answer).to.be.a('string').and.not.be.empty);",
+                  "pm.test('Answered with an MCP tool', () => pm.expect(r.toolsUsed).to.include('get_vacations_summary'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ai/ask",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ai",
+                "ask"
+              ]
+            },
+            "description": "Gemini picks a tool of the MCP server, the MCP client calls it, Gemini writes the answer.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"question\": \"How many vacations are active now?\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "50. Ask - empty question -> 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 400', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ai/ask",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ai",
+                "ask"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"question\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "51. Ask - no token -> 401",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 401', () => pm.response.to.have.status(401));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ai/ask",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ai",
+                "ask"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"question\": \"How many vacations are there?\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "MCP server (HTTP)",
+      "item": [
+        {
+          "name": "52. MCP server - initialize",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "const raw = pm.response.text();",
+                  "const line = raw.split('\\n').find(l => l.startsWith('data: '));",
+                  "const rpc = JSON.parse(line ? line.slice(6) : raw);",
+                  "pm.test('Our MCP server', () => pm.expect(rpc.result.serverInfo.name).to.eql('vacations-mcp-server'));",
+                  "pm.test('It offers tools', () => pm.expect(rpc.result.capabilities).to.have.property('tools'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json, text/event-stream"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/mcp",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mcp"
+              ]
+            },
+            "description": "The MCP server over HTTP (Streamable HTTP, JSON-RPC 2.0). Any MCP client can connect with the same Bearer token.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 1,\n  \"method\": \"initialize\",\n  \"params\": {\n    \"protocolVersion\": \"2025-06-18\",\n    \"capabilities\": {},\n    \"clientInfo\": {\n      \"name\": \"postman\",\n      \"version\": \"1.0\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "53. MCP server - tools/list",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "const raw = pm.response.text();",
+                  "const line = raw.split('\\n').find(l => l.startsWith('data: '));",
+                  "const rpc = JSON.parse(line ? line.slice(6) : raw);",
+                  "const names = rpc.result.tools.map(t => t.name);",
+                  "pm.test('The 3 tools', () => pm.expect(names).to.have.members(['get_vacations_summary', 'list_vacations', 'get_most_liked_vacations']));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json, text/event-stream"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/mcp",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mcp"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 2,\n  \"method\": \"tools/list\",\n  \"params\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "54. MCP server - tools/call get_vacations_summary",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "const raw = pm.response.text();",
+                  "const line = raw.split('\\n').find(l => l.startsWith('data: '));",
+                  "const rpc = JSON.parse(line ? line.slice(6) : raw);",
+                  "const summary = JSON.parse(rpc.result.content[0].text);",
+                  "pm.test('Real numbers from the DB', () => { pm.expect(summary.total).to.be.at.least(12); pm.expect(summary.active + summary.upcoming + summary.ended).to.eql(summary.total); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json, text/event-stream"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/mcp",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mcp"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 3,\n  \"method\": \"tools/call\",\n  \"params\": {\n    \"name\": \"get_vacations_summary\",\n    \"arguments\": {}\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "55. MCP server - unknown tool -> error",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200 (JSON-RPC carries the error)', () => pm.response.to.have.status(200));",
+                  "const raw = pm.response.text();",
+                  "const line = raw.split('\\n').find(l => l.startsWith('data: '));",
+                  "const rpc = JSON.parse(line ? line.slice(6) : raw);",
+                  "pm.test('Refused', () => pm.expect(rpc.result.isError).to.be.true);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json, text/event-stream"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/mcp",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mcp"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 4,\n  \"method\": \"tools/call\",\n  \"params\": {\n    \"name\": \"delete_everything\",\n    \"arguments\": {}\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "56. MCP server - no token -> 401",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 401', () => pm.response.to.have.status(401));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json, text/event-stream"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/mcp",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mcp"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 5,\n  \"method\": \"tools/list\",\n  \"params\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3001"
+    },
+    {
+      "key": "newEmail",
+      "value": ""
+    },
+    {
+      "key": "hackEmail",
+      "value": ""
+    },
+    {
+      "key": "userToken",
+      "value": ""
+    },
+    {
+      "key": "adminToken",
+      "value": ""
+    },
+    {
+      "key": "vacationId",
+      "value": ""
+    },
+    {
+      "key": "startLikes",
+      "value": ""
+    },
+    {
+      "key": "newVacationId",
+      "value": ""
+    },
+    {
+      "key": "newImage",
+      "value": ""
+    },
+    {
+      "key": "futureStart",
+      "value": ""
+    },
+    {
+      "key": "futureEnd",
+      "value": ""
+    },
+    {
+      "key": "pastStart",
+      "value": ""
+    },
+    {
+      "key": "pastEnd",
+      "value": ""
+    }
+  ]
+}

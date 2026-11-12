@@ -1,0 +1,309 @@
+[{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c59"
+	},
+	"destination": "Prague, Czech Republic",
+	"description": "A fairy-tale old town: Prague Castle, Charles Bridge, the Astronomical Clock and cozy Czech beer halls.",
+	"startDate": {
+		"$date": "2026-10-24T00:00:00Z"
+	},
+	"endDate": {
+		"$date": "2026-10-29T00:00:00Z"
+	},
+	"price": 990,
+	"imageFileName": "prague.jpg",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c5a"
+	},
+	"destination": "Bangkok, Thailand",
+	"description": "The golden temples of Wat Pho and Wat Arun, floating markets, street food and rooftop bars over the Chao Phraya river.",
+	"startDate": {
+		"$date": "2026-11-02T00:00:00Z"
+	},
+	"endDate": {
+		"$date": "2026-11-10T00:00:00Z"
+	},
+	"price": 1290,
+	"imageFileName": "bangkok.jpg",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c5c"
+	},
+	"destination": "Paris, France",
+	"description": "The City of Light: the Eiffel Tower, the Louvre, Montmartre and long evenings in cafés along the Seine.",
+	"startDate": {
+		"$date": "2026-11-04T00:00:00Z"
+	},
+	"endDate": {
+		"$date": "2026-11-11T00:00:00Z"
+	},
+	"price": 1890,
+	"imageFileName": "paris.jpg",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c58"
+	},
+	"destination": "Barcelona, Spain",
+	"description": "Gaudí's Sagrada Família and Park Güell, the Gothic Quarter, tapas bars and the Mediterranean beaches of Barceloneta.",
+	"startDate": {
+		"$date": "2026-10-11T00:00:00Z"
+	},
+	"endDate": {
+		"$date": "2026-10-18T00:00:00Z"
+	},
+	"price": 1420,
+	"imageFileName": "barcelona.jpg",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c5b"
+	},
+	"destination": "Dubai, United Arab Emirates",
+	"description": "The Burj Khalifa, desert safaris, the Dubai Mall and the beaches of Jumeirah.",
+	"startDate": {
+		"$date": "2026-11-03T00:00:00Z"
+	},
+	"endDate": {
+		"$date": "2026-11-09T00:00:00Z"
+	},
+	"price": 2350,
+	"imageFileName": "dubai.jpg",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c57"
+	},
+	"destination": "Rome, Italy",
+	"description": "Walk through 2,000 years of history: the Colosseum, the Roman Forum, the Vatican Museums and authentic trattorias in Trastevere.",
+	"startDate": {
+		"$date": "2026-09-26T00:00:00Z"
+	},
+	"endDate": {
+		"$date": "2026-10-03T00:00:00Z"
+	},
+	"price": 1650,
+	"imageFileName": "rome.jpg",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c5f"
+	},
+	"destination": "Santorini, Greece",
+	"description": "White villages above the caldera, the famous sunsets of Oia, volcanic beaches and fresh Greek seafood.",
+	"startDate": {
+		"$date": "2026-12-10T00:00:00Z"
+	},
+	"endDate": {
+		"$date": "2026-12-17T00:00:00Z"
+	},
+	"price": 2150,
+	"imageFileName": "santorini.jpg",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c62"
+	},
+	"destination": "New York, USA",
+	"description": "Times Square, Central Park, the Statue of Liberty and Broadway — the city that never sleeps.",
+	"startDate": {
+		"$date": "2027-01-14T00:00:00Z"
+	},
+	"endDate": {
+		"$date": "2027-01-21T00:00:00Z"
+	},
+	"price": 2890,
+	"imageFileName": "new-york.jpg",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c61"
+	},
+	"destination": "London, United Kingdom",
+	"description": "Big Ben, the British Museum, West End shows and the markets of Camden and Borough.",
+	"startDate": {
+		"$date": "2026-12-30T00:00:00Z"
+	},
+	"endDate": {
+		"$date": "2027-01-04T00:00:00Z"
+	},
+	"price": 1750,
+	"imageFileName": "london.jpg",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c64"
+	},
+	"destination": "Cape Town, South Africa",
+	"description": "Table Mountain, the Cape of Good Hope, the penguins of Boulders Beach and the Winelands.",
+	"startDate": {
+		"$date": "2027-03-05T00:00:00Z"
+	},
+	"endDate": {
+		"$date": "2027-03-15T00:00:00Z"
+	},
+	"price": 2480,
+	"imageFileName": "cape-town.jpg",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c63"
+	},
+	"destination": "Bali, Indonesia",
+	"description": "The rice terraces of Ubud, the surf beaches of Uluwatu, sacred water temples and tropical villas.",
+	"startDate": {
+		"$date": "2027-02-03T00:00:00Z"
+	},
+	"endDate": {
+		"$date": "2027-02-13T00:00:00Z"
+	},
+	"price": 1980,
+	"imageFileName": "bali.jpg",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c60"
+	},
+	"destination": "Reykjavik, Iceland",
+	"description": "Northern lights, the Golden Circle, geysers, giant waterfalls and the Blue Lagoon.",
+	"startDate": {
+		"$date": "2026-12-20T00:00:00Z"
+	},
+	"endDate": {
+		"$date": "2026-12-26T00:00:00Z"
+	},
+	"price": 3100,
+	"imageFileName": "reykjavik.jpg",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c5d"
+	},
+	"destination": "Amsterdam, Netherlands",
+	"description": "Canal cruises, the Van Gogh Museum, the Anne Frank House and cycling through one of Europe's most charming cities.",
+	"startDate": {
+		"$date": "2026-11-15T00:00:00Z"
+	},
+	"endDate": {
+		"$date": "2026-11-20T00:00:00Z"
+	},
+	"price": 1380,
+	"imageFileName": "amsterdam.jpg",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c5e"
+	},
+	"destination": "Tokyo, Japan",
+	"description": "Neon-lit Shibuya and Shinjuku, ancient temples in Asakusa, fresh sushi and a day trip to Mount Fuji.",
+	"startDate": {
+		"$date": "2026-11-25T00:00:00Z"
+	},
+	"endDate": {
+		"$date": "2026-12-05T00:00:00Z"
+	},
+	"price": 3450,
+	"imageFileName": "tokyo.jpg",
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.933Z"
+	},
+	"__v": 0
+}]
+

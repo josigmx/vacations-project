@@ -1,0 +1,5 @@
+# defense in depth — each project has its own .gitignore too
+node_modules
+.env
+.DS_Store
+*.zip

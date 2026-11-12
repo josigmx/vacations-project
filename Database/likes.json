@@ -1,0 +1,631 @@
+[{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c65"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c51"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c57"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c67"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c53"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c57"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c66"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c52"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c57"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c68"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c54"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c57"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c69"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c52"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c58"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c6a"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c55"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c58"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c6c"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c54"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5a"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c6b"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c53"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5a"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c6f"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c55"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5b"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c74"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c55"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5c"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c72"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c53"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5c"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c73"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c54"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5c"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c71"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c52"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5c"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c70"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c51"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5c"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c75"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c56"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5c"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c76"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c54"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5d"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c78"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c52"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5e"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c79"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c53"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5e"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c7b"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c56"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5e"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c77"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c51"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5e"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c7a"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c55"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5e"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c7d"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c53"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5f"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c7c"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c52"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5f"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c7e"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c54"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5f"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c83"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c51"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c62"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c84"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c52"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c62"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c82"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c54"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c61"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c85"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c55"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c62"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c80"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c56"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c60"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c6e"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c51"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5b"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c6d"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c56"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5a"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c87"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c56"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c63"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c86"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c53"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c63"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c81"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c51"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c61"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "6aec6fc5d6ce579cc2712c7f"
+	},
+	"userId": {
+		"$oid": "6aec6fc5d6ce579cc2712c55"
+	},
+	"vacationId": {
+		"$oid": "6aec6fc5d6ce579cc2712c5f"
+	},
+	"createdAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"updatedAt": {
+		"$date": "2026-11-05T12:00:05.948Z"
+	},
+	"__v": 0
+}]
+
