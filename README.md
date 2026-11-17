@@ -86,7 +86,7 @@ Gemini gets the question and the tool descriptions and asks for a tool → the M
 Gemini writes the answer. The same server is also open over HTTP at `POST /mcp` (MCP Streamable HTTP, needs the login token),
 so any MCP client can connect to it.
 
-The AI calls stop waiting after 25 seconds and switch to a backup Gemini model when the main one is busy (`GEMINI_MODEL` / `GEMINI_FALLBACK_MODEL` in `.env`).
+The AI calls stop waiting after 25 seconds and switch to the backup Gemini models, in order, when the main one is busy (`GEMINI_MODEL` / `GEMINI_FALLBACK_MODEL` in `.env`, a comma-separated list).
 
 ## API
 

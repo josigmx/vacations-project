@@ -11,6 +11,7 @@ import aiRoutes from './routes/aiRoutes';
 import mcpRoutes from './routes/mcpRoutes';
 import { IMAGES_FOLDER } from './utils/imageFiles';
 import { isDatabaseEmpty, seedDatabase } from './seedData';
+import { getModels } from './services/llmService';
 
 dotenv.config();
 
@@ -44,6 +45,7 @@ async function startServer() {
         if (!process.env.GEMINI_API_KEY) {
             console.warn('GEMINI_API_KEY is missing — the AI and MCP pages will not work');
         }
+        console.log(`Gemini models, in order: ${getModels().join(' → ')}`);
 
         await mongoose.connect(mongoUri);
 

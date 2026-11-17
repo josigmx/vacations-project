@@ -30,11 +30,15 @@ function getClient(): GoogleGenAI {
     return client;
 }
 
-function getModels(): string[] {
-    return [
-        process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite',
-        process.env.GEMINI_FALLBACK_MODEL || 'gemini-3.1-flash-lite'
-    ];
+// The main model first, then the backup models in order.
+// GEMINI_FALLBACK_MODEL can hold several models separated by commas: "model-a,model-b"
+export function getModels(): string[] {
+    const fallbacks = (process.env.GEMINI_FALLBACK_MODEL || 'gemini-3.1-flash-lite,gemini-3-flash-preview')
+        .split(',')
+        .map((model) => model.trim())
+        .filter((model) => model.length > 0);
+
+    return [process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite', ...fallbacks];
 }
 
 // A temporary problem on Google's side → worth trying the backup model
